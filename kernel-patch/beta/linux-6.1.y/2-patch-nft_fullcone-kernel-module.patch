@@ -1,15 +1,15 @@
-From b1c1eadf00d45ba64fdbc6d5c426a4f5a55ae568 Mon Sep 17 00:00:00 2001
+From 8bdc366494f7246f8151a07ea2cb5c9282966975 Mon Sep 17 00:00:00 2001
 From: Evans Mike <etnperlong@gmail.com>
-Date: Tue, 14 Nov 2023 10:21:54 +0000
+Date: Tue, 14 Nov 2023 11:50:20 +0000
 Subject: [PATCH] patch: nft_fullcone kernel module
 
 ---
  net/netfilter/Kconfig            |   15 +
- net/netfilter/Makefile           |    3 +
+ net/netfilter/Makefile           |    4 +
  net/netfilter/nf_nat_fullcone.c  | 1598 ++++++++++++++++++++++++++++++
  net/netfilter/nf_nat_fullcone.h  |  156 +++
  net/netfilter/nft_ext_fullcone.c |  462 +++++++++
- 5 files changed, 2234 insertions(+)
+ 5 files changed, 2235 insertions(+)
  create mode 100644 net/netfilter/nf_nat_fullcone.c
  create mode 100644 net/netfilter/nf_nat_fullcone.h
  create mode 100644 net/netfilter/nft_ext_fullcone.c
@@ -41,15 +41,16 @@ index 3c23e6ef0..7d015bc06 100644
  	tristate "Netfilter nf_tables tunnel module"
  	help
 diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index e48c6f3af..f81849396 100644
+index e48c6f3af..38364eb44 100644
 --- a/net/netfilter/Makefile
 +++ b/net/netfilter/Makefile
-@@ -126,6 +126,9 @@ obj-$(CONFIG_NFT_SYNPROXY)	+= nft_synproxy.o
+@@ -126,6 +126,10 @@ obj-$(CONFIG_NFT_SYNPROXY)	+= nft_synproxy.o
  
  obj-$(CONFIG_NFT_NAT)		+= nft_chain_nat.o
  
-+obj-$(CONFIG_NFT_FULLCONE)		+= nf_nat_fullcone.o
-+obj-$(CONFIG_NFT_FULLCONE)		+= nft_ext_fullcone.o
++obj-$(CONFIG_NFT_FULLCONE)		+= nft_fullcone.o
++nft_fullcone-objs := nf_nat_fullcone.o \
++	nft_ext_fullcone.o
 +
  # nf_tables netdev
  obj-$(CONFIG_NFT_DUP_NETDEV)	+= nft_dup_netdev.o
