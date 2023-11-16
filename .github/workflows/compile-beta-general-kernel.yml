@@ -45,9 +45,10 @@ on:
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
-        default: "kernel-config/release/general"
+        default: "kernel-config/dev/general"
         type: choice
         options:
+          - kernel-config/dev/general
           - kernel-config/release/general
           - false
       kernel_patch:
@@ -69,7 +70,7 @@ on:
       kernel_toolchain:
         description: "Select the compilation toolchain"
         required: false
-        default: "gcc"
+        default: "clang"
         type: choice
         options:
           - clang
@@ -82,9 +83,10 @@ on:
         options:
           - -beta
           - -evans
+          - -btf
 
 env:
-  TZ: America/New_York
+  TZ: Europe/London
 
 jobs:
   build:
@@ -114,7 +116,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: etnperlong/amlogic-s9xxx-armbian@main
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
